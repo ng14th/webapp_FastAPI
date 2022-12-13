@@ -1,6 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from app.config import settings
 from app.view import router as employee_router
+from fastapi.responses import JSONResponse, HTMLResponse
+from app.core.exceptions import ErrorResponseException
+
 app = FastAPI(
     title=settings.APP_PROJECT_NAME,
     docs_url= settings.APP_DOCS_URL,
@@ -17,7 +20,18 @@ for router in (
         tags = router.get('tags')
     )
 
-
+@app.exception_handler(ErrorResponseException)
+async def error_response_exception_handler(request: Request, exception: ErrorResponseException):
+    return JSONResponse(
+        status_code=exception.status_code,
+        content={
+            "success": exception.success,
+            "data": exception.data,
+            "length": exception.length,
+            "error": exception.error,
+            "error_code": exception.error_code
+        },
+    )
 
 @app.get("/")
 async def root():

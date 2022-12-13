@@ -15,13 +15,10 @@ class AppEnvConfig(BaseSettings):
     APP_DB_MONGO_URI : str = ""
     APP_DB_MONGO_NAME : str = ""
     
-    SENTINEL_NAMESPACE: str = 'mymaster'
-    SENTINEL_URLS: List[Tuple[str, int]] = [
-        ('172.27.230.25' , 26379, )
-    ]
-    SENTINEL_PASSWORD: str = '02011993'
-    SENTINEL_DECODE_RESPONSE: bool = True
-    SENTINEL_DB: int = 0
+
+    REDIS_URL: str = "172.27.230.25"
+    REDIS_RESPONSE: bool = True
+    REDIS_DB: int = 0
     
     
     class Config:

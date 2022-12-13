@@ -11,6 +11,7 @@ motor = "^3.1.1"
 fastapi = "^0.88.0"
 uvicorn = {extras = ["standard"], version = "^0.20.0"}
 umongo = "^3.1.0"
+aioredis = "^2.0.1"
 
 
 [build-system]
