@@ -1,0 +1,10 @@
+.venv
+
+.vscode/
+
+### Python ###
+__pycache__/
+*.py[cod]
+*$py.class
+
+test.py
