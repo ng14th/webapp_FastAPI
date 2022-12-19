@@ -20,6 +20,9 @@ class AppEnvConfig(BaseSettings):
     REDIS_RESPONSE: bool = True
     REDIS_DB: int = 0
     
+    BROKER_URL : str = "redis://172.27.230.25:6379/9"
+    BACKEND_URL : str = "redis://172.27.230.25:6379/9"
+    
     
     class Config:
         case_sensitive = True
