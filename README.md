@@ -21,6 +21,10 @@
 ```
     $ ./scripts/run_app.sh
 ```
+- Run Celery Worker 
+```
+    $ ./scripts/run_celery.sh
+```
 ## For install new libary 
 - Use method add of poetry
 ```
