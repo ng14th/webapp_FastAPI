@@ -1,13 +1,19 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, BackgroundTasks
 from app.config import settings
 from app.view import router as employee_router
 from fastapi.responses import JSONResponse, HTMLResponse
 from app.core.exceptions import ErrorResponseException
+from app.core.startup_events.startup import events as event_startup
+import logging
+
+
+log = logging.getLogger(__name__)
 
 app = FastAPI(
     title=settings.APP_PROJECT_NAME,
     docs_url= settings.APP_DOCS_URL,
-    openapi_url='/api/openapi.json'
+    openapi_url='/api/openapi.json',
+    on_startup = event_startup
 )
 
 for router in (
@@ -33,7 +39,10 @@ async def error_response_exception_handler(request: Request, exception: ErrorRes
         },
     )
 
+
+
+
 @app.get("/")
-async def root():
+async def root():    
     
     return {"message": "Hello World"}
