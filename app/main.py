@@ -4,6 +4,7 @@ from app.view import router as employee_router
 from fastapi.responses import JSONResponse, HTMLResponse
 from app.core.exceptions import ErrorResponseException
 from app.core.startup_events.startup import events as event_startup
+from fastapi.middleware.cors import CORSMiddleware
 import logging
 
 
@@ -16,6 +17,11 @@ app = FastAPI(
     on_startup = event_startup
 )
 
+app.add_middleware(CORSMiddleware,
+                   allow_origins=["http://localhost:800*","*"],
+                   allow_methods = ["POST", "GET", "DELETE", "PUT"],
+                   allow_credentials = True,
+                   allow_headers = ["*"])
 for router in (
     {'module': employee_router, 'prefix': '/employee', },
 ):

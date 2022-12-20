@@ -6,7 +6,8 @@ from pydantic import BaseModel
 ERROR_CODE = {
     1000: "Config error",
     2000: "username have already exist",
-    2001: "employee not exist"
+    2001: "employee not exist",
+    3001: "Phone must be number"
 }
 
 

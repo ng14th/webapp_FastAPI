@@ -4,6 +4,7 @@ from app.schema.employee_schema import ( EmployeeInfor,
 from app.models.employee import EmployeeInformations
 from app.core.exceptions import ErrorResponseException
 from app.core.schema.api_response import get_error_code
+from app.core.database.redis import redis
 import json
 import ujson
 
@@ -38,6 +39,8 @@ async def delete_employee(delete_employee : EmployeeInfor):
     if not is_exist_employee:
         raise ErrorResponseException(**get_error_code(2001))
     await is_exist_employee.delete()
+    name = f'sync_information_employeee__{delete_employee.tenant_id}__{delete_employee.username}'
+    await  redis.delete(name)
     return True
 
 async def update_information_employee(update : UpdateEmployeeInfor):
