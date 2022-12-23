@@ -1,7 +1,9 @@
-from app.utils.employee import ( add_new_employee, 
-                                delete_employee, 
-                                update_information_employee,
-                                get_list_employ_by_tenant_id)
+from app.utils.employee import ( 
+add_new_employee, 
+delete_employee, 
+update_information_employee,
+get_list_employ_by_tenant_id,
+get_list_employee)
 from app.schema.employee_schema import ( EmployeeInfor, 
                                         UpdateEmployeeInfor,
                                         GetEmployByTeanantID)
@@ -39,11 +41,19 @@ async def update_employee(
                 'data' : [result]}
     return {'success': False}
 
-@router.post('/list_employee',response_model=ApiResponse)
-async def update_employee(
+@router.post('/list_employee_tenant_id',response_model=ApiResponse)
+async def get_list_employ(
     data : GetEmployByTeanantID
 ):
     result = await get_list_employ_by_tenant_id(data.tenant_id)
+    if result :
+        return {'success' : True,
+                'data' : [result]}
+    return {'success': False}
+
+@router.post('/list_employee',response_model=ApiResponse)
+async def get_list_employ_all():
+    result = await get_list_employee()
     if result :
         return {'success' : True,
                 'data' : [result]}

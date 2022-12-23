@@ -18,8 +18,17 @@ async def sync_information_employee():
     for employee_information in list_information:
         await create_hash_data_employee_in_redis(employee_information)
 
-@celery.task()
-def auto_sync_information():
-    loop.run_until_complete(sync_information_employee())
+# # run when start up app FASTAPI
+# @celery.task()
+# def auto_sync_information():
+#     print("CALLING TASK REPEAT")
+#     loop.run_until_complete(sync_information_employee())
+
+# run when beat
+# @celery.task('')
+# def schedule_beat_sync_information_employeer(*args, **kwargs):
+#     print("BEAT SCHEDULE")
+#     loop.run_until_complete(sync_information_employee())
+
     
     

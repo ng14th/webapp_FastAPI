@@ -3,7 +3,7 @@ from app.config import settings
 from app.view import router as employee_router
 from fastapi.responses import JSONResponse, HTMLResponse
 from app.core.exceptions import ErrorResponseException
-from app.core.startup_events.startup import events as event_startup
+# from app.core.startup_events.startup import events as event_startup
 from fastapi.middleware.cors import CORSMiddleware
 import logging
 
@@ -14,7 +14,7 @@ app = FastAPI(
     title=settings.APP_PROJECT_NAME,
     docs_url= settings.APP_DOCS_URL,
     openapi_url='/api/openapi.json',
-    on_startup = event_startup
+    # on_startup = event_startup
 )
 
 app.add_middleware(CORSMiddleware,

@@ -5,6 +5,7 @@ from app.models.employee import EmployeeInformations
 from app.core.exceptions import ErrorResponseException
 from app.core.schema.api_response import get_error_code
 from app.core.database.redis import redis
+from app.core.celery.celery import celery
 import json
 import ujson
 
@@ -87,6 +88,7 @@ async def get_list_employee():
         employee_dict = employee.dump()
         employee_dict.pop("id")
         result.append(employee_dict)
+        celery.send_task('sync_list_user', kwargs=employee_dict)
     return result
         
 
