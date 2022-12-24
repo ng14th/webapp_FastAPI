@@ -29,6 +29,10 @@
 ```
     $ ./scripts/run_celery_beat.sh
 ```
+- Run Celery Flower
+```
+    $ ./scripts/run_celery_flower.sh
+```
 ## For install new libary 
 - Use method add of poetry
 ```
@@ -45,4 +49,8 @@
 - Access http://172.27.230.25:8000/docs 
 ```
     See all method of project 
+```
+- Access http://172.27.230.25:8090/ 
+```
+    See Task Process of Celery
 ```
