@@ -23,7 +23,11 @@
 ```
 - Run Celery Worker 
 ```
-    $ ./scripts/run_celery.sh
+    $ ./scripts/run_celery_worker.sh
+```
+- Run Celery Beat
+```
+    $ ./scripts/run_celery_beat.sh
 ```
 ## For install new libary 
 - Use method add of poetry
