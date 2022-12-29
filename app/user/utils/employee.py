@@ -1,7 +1,7 @@
-from app.schema.employee_schema import ( EmployeeInfor, 
+from app.user.schema.employee_schema import ( EmployeeInfor, 
                                         UpdateEmployeeInfor,
                                         GetEmployByTeanantID)
-from app.models.employee import EmployeeInformations
+from app.user.models.employee import EmployeeInformations
 from app.core.exceptions import ErrorResponseException
 from app.core.schema.api_response import get_error_code
 from app.core.database.redis import redis

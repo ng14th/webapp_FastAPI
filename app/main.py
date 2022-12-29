@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request, BackgroundTasks
 from app.config import settings
-from app.view import router as employee_router
+from app.user.view import router as employee_router
+from app.login import router as login_router
 from fastapi.responses import JSONResponse, HTMLResponse
 from app.core.exceptions import ErrorResponseException
 # from app.core.startup_events.startup import events as event_startup
@@ -23,7 +24,8 @@ app.add_middleware(CORSMiddleware,
                    allow_credentials = True,
                    allow_headers = ["*"])
 for router in (
-    {'module': employee_router, 'prefix': '/employee', },
+    {'module': employee_router, 'prefix': '/employee',},
+    {'module': login_router, 'prefix': '/login',},
 ):
     print(router)
     app.include_router(

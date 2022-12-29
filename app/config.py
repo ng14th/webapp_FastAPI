@@ -23,6 +23,9 @@ class AppEnvConfig(BaseSettings):
     BROKER_URL : str = "redis://172.27.230.25:6379/9"
     BACKEND_URL : str = "redis://172.27.230.25:6379/9"
     
+    SECRET_KEY : str =  'nguyennt63'
+    SECURITY_ALGORITHM : str = 'HS256'
+    
     
     class Config:
         case_sensitive = True

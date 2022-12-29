@@ -7,7 +7,10 @@ ERROR_CODE = {
     1000: "Config error",
     2000: "username have already exist",
     2001: "employee not exist",
-    3001: "Phone must be number"
+    3001: "Phone must be number",
+    9000: "User not exist in system",
+    9999: "Wrong Password"
+    
 }
 
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from umongo import Document, fields
+from umongo import Document, fields, EmbeddedDocument
 from app.core.database.mongo import umongo_cnx
 
 

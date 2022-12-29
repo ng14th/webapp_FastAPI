@@ -1,14 +1,15 @@
-from app.utils.employee import ( 
+from app.user.utils.employee import ( 
 add_new_employee, 
 delete_employee, 
 update_information_employee,
 get_list_employ_by_tenant_id,
 get_list_employee)
-from app.schema.employee_schema import ( EmployeeInfor, 
+from app.user.schema.employee_schema import ( EmployeeInfor, 
                                         UpdateEmployeeInfor,
                                         GetEmployByTeanantID)
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from app.core.schema.api_response import ApiResponse
+from app.core.verify.token import generate_jwt_token, validator_token
 
 router = APIRouter(tags=['Employee'])
 
@@ -52,9 +53,14 @@ async def get_list_employ(
     return {'success': False}
 
 @router.post('/list_employee',response_model=ApiResponse)
-async def get_list_employ_all():
+async def get_list_employ_all(user = Depends(validator_token)):
+    tenant_id = user.get("tenant_id")
+    print(tenant_id)
     result = await get_list_employee()
     if result :
         return {'success' : True,
                 'data' : [result]}
     return {'success': False}
+
+    
+    
