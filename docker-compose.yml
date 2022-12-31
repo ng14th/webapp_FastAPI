@@ -1,0 +1,16 @@
+version: '2.8'
+
+services:
+  fastapi-app:
+    image: fastapi-webapp
+    build: .
+    ports:
+      - 3000:3000
+    restart: always
+    command: ./scripts/run_app.sh
+    
+  celery-worker:
+    image: fastapi-webapp
+    build: .
+    restart: always
+    command: ./scripts/run_celery_worker.sh
