@@ -19,6 +19,9 @@ fastapi-utils = "^0.2.1"
 flower = "^1.2.0"
 pyjwt = "^2.6.0"
 bcrypt = "^4.0.1"
+nats-py = "^2.2.0"
+nats-python = "^0.8.0"
+aiormq = "^6.6.4"
 
 
 [build-system]
