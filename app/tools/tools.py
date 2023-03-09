@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import *
 import ujson
 
 def _dumps_dict_for_hash_map(data: Dict) -> Dict:
@@ -12,3 +12,21 @@ def _dumps_dict_for_hash_map(data: Dict) -> Dict:
             else:
                 formatted[k] = v
         return formatted
+    
+def convert_data_to_byte(data):
+    if isinstance(data, (list, tuple, dict, bool)):
+        try :
+            data_json = ujson.dumps(data)
+            result = data_json.encode()
+            return result
+        except Exception as e :
+            print(f'Convert data to byte got exception {e}')
+            return None
+    else:
+        try: 
+            result = data.encode()
+            return result
+        except Exception as e :
+            print(f'Convert data to byte got exception {e}')
+            return None
+        

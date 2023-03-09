@@ -22,6 +22,7 @@ bcrypt = "^4.0.1"
 nats-py = "^2.2.0"
 nats-python = "^0.8.0"
 aiormq = "^6.6.4"
+kombu = "^5.2.4"
 
 
 [build-system]

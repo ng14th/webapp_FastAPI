@@ -24,7 +24,7 @@ if __name__ == '__main__':
     uvicorn.run(
         'app.main:app',
         loop='uvloop',
-        reload=True,
+        reload=False,
         host=settings.GUNICORN_HOST,
         port=int(settings.GUNICORN_PORT),
         timeout_keep_alive=0 

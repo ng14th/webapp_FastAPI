@@ -1,6 +1,5 @@
 from app.user.schema.employee_schema import ( EmployeeInfor, 
-                                        UpdateEmployeeInfor,
-                                        GetEmployByTeanantID)
+                                        UpdateEmployeeInfor)
 from app.user.models.employee import EmployeeInformations
 from app.core.exceptions import ErrorResponseException
 from app.core.schema.api_response import get_error_code
@@ -9,15 +8,15 @@ from app.core.celery.celery import celery
 import json
 import ujson
 
-async def add_new_employee(infor : EmployeeInfor):
+async def add_new_employee(infor : EmployeeInfor, tenant_id):
     is_exist_username : EmployeeInformations = await EmployeeInformations.find_one({
-        "tenant_id" : infor.tenant_id,
+        "tenant_id" : tenant_id,
         "username" : infor.username
     })
     if is_exist_username : 
         raise ErrorResponseException(**get_error_code(2000))
     new_employee = EmployeeInformations(
-        tenant_id = infor.tenant_id,
+        tenant_id = tenant_id,
         username = infor.username,
         full_name = infor.full_name,
         phone = infor.phone
@@ -30,24 +29,24 @@ async def add_new_employee(infor : EmployeeInfor):
         }
         return resp
 
-async def delete_employee(delete_employee : EmployeeInfor):
+async def delete_employee(delete_employee : EmployeeInfor, tenant_id):
     is_exist_employee : EmployeeInformations = await EmployeeInformations.find_one(
         {
-            "tenant_id": delete_employee.tenant_id,
+            "tenant_id": tenant_id,
             "username" : delete_employee.username
         }
     )
     if not is_exist_employee:
         raise ErrorResponseException(**get_error_code(2001))
     await is_exist_employee.delete()
-    name = f'sync_information_employeee__{delete_employee.tenant_id}__{delete_employee.username}'
+    name = f'sync_information_employeee__{tenant_id}__{delete_employee.username}'
     await  redis.delete(name)
     return True
 
-async def update_information_employee(update : UpdateEmployeeInfor):
+async def update_information_employee(update : UpdateEmployeeInfor, tenant_id):
     is_exist_employee : EmployeeInformations = await EmployeeInformations.find_one(
         {
-            "tenant_id": update.tenant_id,
+            "tenant_id": tenant_id,
             "username" : update.username
         }
     )
@@ -81,14 +80,14 @@ async def get_list_employ_by_tenant_id(teant_id):
         
     return result
 
-async def get_list_employee():
+async def get_list_employee(tenant_id):
     result = []
-    employees : EmployeeInformations = EmployeeInformations.find({})
+    employees : EmployeeInformations = EmployeeInformations.find({"tenant_id":tenant_id})
     async for employee in employees:
         employee_dict = employee.dump()
         employee_dict.pop("id")
         result.append(employee_dict)
-        celery.send_task('sync_list_user', kwargs=employee_dict)
+        # celery.send_task('sync_list_user', kwargs=employee_dict)
     return result
         
 

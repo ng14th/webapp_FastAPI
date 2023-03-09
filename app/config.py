@@ -20,16 +20,32 @@ class AppEnvConfig(BaseSettings):
     REDIS_RESPONSE: bool = True
     REDIS_DB: int = 0
     
-    BROKER_URL : str = "redis://172.27.230.25:6379/9"
-    BACKEND_URL : str = "redis://172.27.230.25:6379/9"
+    BROKER_URL : str = f'amqp://admin:admin@172.27.230.14/nguyennt63'
+    BACKEND_URL : str = "redis://172.27.230.14:6379/9"
     
     SECRET_KEY : str =  'nguyennt63'
     SECURITY_ALGORITHM : str = 'HS256'
+    
+    RMQ_TCP : str = "amqp"
+    RMQ_URL : str = "172.27.230.14"
+    RMQ_USERNAME : str = "admin"
+    RMQ_PASSWORD : str = "admin"
+    RMQ_VIRTUAL_HOST : str = "nguyennt63"
+    RMQ_CHANNEL : int = 9
+    
+    EMAIL_SENDER : str = 'nguyennt63@fpt.com.vn'
+    EMAIL_PASSWORD : str = '@Dj5ngontay1411'
+    EMAIL_HOST : str = 'mail.fpt.com.vn'
+    EMAIL_PORT : int = 587
+
     
     
     class Config:
         case_sensitive = True
         validate_assignment = True
+        
+        
+    
 
 settings = AppEnvConfig(_env_file='.env')
 if __name__ == "__main__":

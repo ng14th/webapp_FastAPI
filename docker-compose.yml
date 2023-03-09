@@ -14,3 +14,7 @@ services:
     build: .
     restart: always
     command: ./scripts/run_celery_worker.sh
+    links:
+      - fastapi-app
+    depends_on:
+      - fastapi-app

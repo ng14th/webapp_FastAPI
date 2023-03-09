@@ -15,23 +15,17 @@ RUN pip install pydantic[dotenv]
 RUN pip install redis
 RUN pip install aioredis
 RUN pip install ujson
+RUN pip install umongo
 
 
-
-COPY ./app /fastapi_app/app
-COPY ./app_celery /fastapi_app/app_celery
-COPY ./scripts /fastapi_app/scripts
-COPY ./tests /fastapi_app/tests
-COPY ./poetry.lock /fastapi_app/
-COPY ./pyproject.toml /fastapi_app/
-COPY ./run_app.py /fastapi_app/
-
-
+COPY . .
+RUN ls
 
 COPY .env /fastapi_app
 
-
+RUN chmod +x ./scripts/*.sh
 RUN ./scripts/initialize_project.sh
+RUN poetry install
 RUN poetry update 
 
 

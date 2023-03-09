@@ -7,8 +7,14 @@ ERROR_CODE = {
     1000: "Config error",
     2000: "username have already exist",
     2001: "employee not exist",
+    2002: "Cant find user",
     3001: "Phone must be number",
+    3002: "Name cannot empty",
+    4000: "Type exchange of RabbitMQ must in direct, fanout, headers, topic, dlx",
     9000: "User not exist in system",
+    9996: "New Password cant be empty",
+    9997: "New Password is not a same",
+    9998: "Old Password is not correct",
     9999: "Wrong Password"
     
 }
