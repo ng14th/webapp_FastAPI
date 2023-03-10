@@ -54,11 +54,11 @@ async def insert_user_to_mongod_by_token(request : Login):
                 user_password_exp = check_user.password_expr if check_user.password_expr else None
                 if user_password_exp:
                     time_exp = datetime.utcfromtimestamp(float(user_password_exp)) - datetime.utcnow()
-                    result["password_exp"] = time_exp.days
-                    if time_exp.days < 20:
+                    result["password_exp"] = datetime.utcfromtimestamp(float(user_password_exp)).date()
+                    if time_exp.days < 15:
                         message = {
                             "email" : data_user.email,
-                            "time_exp" : time_exp.days
+                            "time_exp" : datetime.utcfromtimestamp(float(user_password_exp)).date()
                         }
                         rabbitmq.publish_message_exchange([message], constants.EXCHANGE_TASK_CELERY, constants.ROUTING_KEY_NOTI_USER)
                         
@@ -77,7 +77,7 @@ async def insert_user_to_mongod_by_token(request : Login):
                 upsert = True
             )
             return {
-                "username" :get_user_meme.get("username") ,
+                "username" :get_user_meme.get("username"),
                 "token" : token,
                 "refresh_token" : refresh_token
             }

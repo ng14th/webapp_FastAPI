@@ -1,20 +1,9 @@
-# from fastapi_utils.tasks import repeat_every
-# from app.core.celery.task import auto_sync_information
-
-
-# # @repeat_every(seconds=20)
-# # def event_startup_sync_information():
-# #     auto_sync_information.delay()
-
-
+from fastapi_utils.tasks import repeat_every
 from app.core.database.rabbitmq_kombu import RabbitMQ
-from app.core import constants
+from app.user.utils.user import find_user_exp_password, sync_password_expr
 import asyncio
-from fastapi import BackgroundTasks
-import time
-from kombu import Queue
-# from app_celery.task_re import event_startup_handler_consumer_rabbitmq
-import threading
+from app.core import constants
+
 
 loop = asyncio.get_event_loop()
 
@@ -23,6 +12,18 @@ rabbitmq = RabbitMQ()
 
 def event_startup_initialize_rabbitmq():
     return rabbitmq.initialize_rmq()
+
+
+@repeat_every(seconds=1)
+async def event_startup_find_user_exp_password():
+    list_user = await find_user_exp_password()
+    print(list_user)
+    if list_user:
+        rabbitmq.publish_message_exchange(list_user,constants.EXCHANGE_TASK_CELERY,constants.ROUTING_KEY_NOTI_USER)
+
+@repeat_every(seconds=864000)
+async def event_startup_find_user_exp_password():
+    await sync_password_expr()
 
 # def event_startup_queue():
 #     rabbitmq.handler_consumer(

@@ -5,6 +5,10 @@ from app.user.schema.user_schema import ChangePassword
 from fastapi import Depends
 from app.core.verify.token import validator_token, check_password, hass_password
 from datetime import datetime, timedelta
+from app.core.database.rabbitmq_kombu import RabbitMQ
+from app.core import constants
+
+connection = RabbitMQ()
 
 
 async def find_user(email):
@@ -32,4 +36,33 @@ async def change_password(data : ChangePassword):
     await user.commit()
     return user.email
         
+async def find_user_exp_password():
+        list_user = []
+        time_now = datetime.timestamp(datetime.utcnow()+timedelta(days=15))
+        users = User.find({'password_expr':{'$lte':str(time_now)}})
+        async for user in users:
+            time_user_exp = datetime.utcfromtimestamp(float(user.password_expr)).date()
+            list_user.append({
+                "email" : user.email,
+                "time_exp" : time_user_exp
+            })
+        return list_user
+
+async def sync_password_expr():
+    time_now =  datetime.timestamp(datetime.utcnow())
+    date_exp_new = datetime.utcnow() + timedelta(days=30)
+    timestamp_sexp_new = datetime.timestamp(date_exp_new)
+    new_password = hass_password("12345")
+    query = {'password_expr':{'$lte':str(time_now)}}
+    update = {"$set":{"password": {"password" : new_password},
+                      "password_expr": str(timestamp_sexp_new)}}
+    update_password = await User.collection.update_one(
+        query,
+        update,
+        upsert = False
+    )
+    return True
+    
+    
+
     
