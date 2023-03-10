@@ -22,7 +22,7 @@ async def event_startup_find_user_exp_password():
         rabbitmq.publish_message_exchange(list_user,constants.EXCHANGE_TASK_CELERY,constants.ROUTING_KEY_NOTI_USER)
 
 @repeat_every(seconds=864000)
-async def event_startup_find_user_exp_password():
+async def event_startup_sync_password_expr():
     await sync_password_expr()
 
 # def event_startup_queue():
