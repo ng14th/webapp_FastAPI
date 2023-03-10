@@ -54,17 +54,20 @@ class SendEmailNotiPasswordExp():
 handler_email = SendEmailNotiPasswordExp()
 
 def password_notification(body, message):
+    message.ack()
     if type(body) == list:
         for data in body:
             if type(data) != dict:
                 logger.critical(f'Data in body must be a Dict')        
-                message.ack()
+                # message.ack()
                 return
         handler_email.send_email(body)
     else :
         logger.critical(f'Body input must is a LIST')
+        # message.ack()
         return
-    message.ack()
+    # message.ack()
+
 
     
     

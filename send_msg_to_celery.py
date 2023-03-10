@@ -13,6 +13,8 @@ async def main():
 
     # publish a message to the queue
     message1 = 'nguyennt63@fpt.com.vn'
+    # message1 = [{'email':'nguyennt63@fpt.com.vn',
+    #              "time_exp" : 123}]
     # b = event_startup_queue()
     # connection.publish_message_queue(message1,b)
     server, channel = connection.initialize_rmq()
