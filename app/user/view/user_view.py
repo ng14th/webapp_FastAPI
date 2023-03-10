@@ -7,7 +7,7 @@ router = APIRouter(tags=['User'])
 
 
 @router.post('/change_password',response_model=ApiResponse)
-async def new_employee(
+async def change_password_user(
     data : ChangePassword
 ):
     result = await change_password(data)
