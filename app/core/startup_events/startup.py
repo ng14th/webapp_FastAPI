@@ -3,6 +3,9 @@ from app.core.database.rabbitmq_kombu import RabbitMQ
 from app.user.utils.user import find_user_exp_password, sync_password_expr
 import asyncio
 from app.core import constants
+import logging
+
+logger = logging.getLogger(f'{__name__}')
 
 
 loop = asyncio.get_event_loop()
@@ -14,8 +17,9 @@ def event_startup_initialize_rabbitmq():
     return rabbitmq.initialize_rmq()
 
 
-@repeat_every(seconds=1)
+@repeat_every(seconds=10)
 async def event_startup_find_user_exp_password():
+    logger.info('Start Proccess Find User Have Expr Password')
     list_user = await find_user_exp_password()
     print(list_user)
     if list_user:
