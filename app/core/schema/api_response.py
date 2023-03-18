@@ -8,6 +8,7 @@ ERROR_CODE = {
     2000: "username have already exist",
     2001: "employee not exist",
     2002: "Cant find user",
+    2003: "Cant update user",
     3001: "Phone must be number",
     3002: "Name cannot empty",
     4000: "Type exchange of RabbitMQ must in direct, fanout, headers, topic, dlx",

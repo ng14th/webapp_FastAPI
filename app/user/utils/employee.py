@@ -69,6 +69,8 @@ async def update_information_employee(update : UpdateEmployeeInfor, tenant_id):
             "phone" : is_exist_employee.phone
         }
         return rsp
+    else:
+        raise ErrorResponseException(**get_error_code(2003))
 
 async def get_list_employ_by_tenant_id(teant_id):
     result = []
@@ -80,9 +82,9 @@ async def get_list_employ_by_tenant_id(teant_id):
         
     return result
 
-async def get_list_employee(tenant_id):
+async def get_list_employee():
     result = []
-    employees : EmployeeInformations = EmployeeInformations.find({"tenant_id":tenant_id})
+    employees : EmployeeInformations = EmployeeInformations.find()
     async for employee in employees:
         employee_dict = employee.dump()
         employee_dict.pop("id")

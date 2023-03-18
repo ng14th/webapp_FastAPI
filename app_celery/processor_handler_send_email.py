@@ -34,7 +34,7 @@ class SendEmailNotiPasswordExp():
 
                 msg['Subject'] = f'[WARNING] - Mật khẩu của bạn đã hết hạn'
                 msg['To'] = email
-                msg.attach(MIMEText(f'Mật khẩu của bạn sẽ hết hạn vào ngày {time_exp}. Hãy truy cập vào đường link sau để đổi mật khẩu : \n {"http://172.27.230.14:3000/docs#/User/new_employee_user_change_password_post"}'))
+                msg.attach(MIMEText(f'Mật khẩu của bạn sẽ hết hạn vào ngày {time_exp}. Hãy truy cập vào đường link sau để đổi mật khẩu : \n {"http://172.27.230.14:3000/docs#/User/change_password_user_user_change_password_post"}'))
                 server = smtplib.SMTP(host=host, port=port)
                 server.starttls()
                 server.login(user=sender_email, password=pass_word)

@@ -58,7 +58,7 @@ async def get_list_employ(
 
 @router.post('/list_employee',response_model=ApiResponse)
 async def get_list_employ_all(user: User = Depends(verify_user)):
-    result = await get_list_employee(user.tenant_id)
+    result = await get_list_employee()
     if result :
         return {'success' : True,
                 'data' : [result]}

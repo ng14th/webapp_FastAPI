@@ -37,16 +37,16 @@ async def change_password(data : ChangePassword):
     return user.email
         
 async def find_user_exp_password():
-        list_user = []
-        time_now = datetime.timestamp(datetime.utcnow()+timedelta(days=15))
-        users = User.find({'password_expr':{'$lte':str(time_now)}})
-        async for user in users:
-            time_user_exp = datetime.utcfromtimestamp(float(user.password_expr)).date()
-            list_user.append({
-                "email" : user.email,
-                "time_exp" : time_user_exp
-            })
-        return list_user
+    list_user = []
+    time_now = datetime.timestamp(datetime.utcnow()+timedelta(days=15))
+    users = User.find({'password_expr':{'$lte':str(time_now)}})
+    async for user in users:
+        time_user_exp = datetime.utcfromtimestamp(float(user.password_expr)).date()
+        list_user.append({
+            "email" : user.email,
+            "time_exp" : time_user_exp
+        })
+    return list_user
 
 async def sync_password_expr():
     time_now =  datetime.timestamp(datetime.utcnow())
