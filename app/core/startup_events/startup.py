@@ -3,16 +3,25 @@ from app.core.database.rabbitmq_kombu import RabbitMQ
 from app.user.utils.user import find_user_exp_password, sync_password_expr
 import asyncio
 from app.core import constants
+import logging
 
 
 loop = asyncio.get_event_loop()
 
 rabbitmq = RabbitMQ()
 
-
 def event_startup_initialize_rabbitmq():
     return rabbitmq.initialize_rmq()
 
+
+def event_startup_config_logger():
+    logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(levelname)s:     %(asctime)s  %(name)s -> %(message)s',
+    handlers=[
+        logging.StreamHandler()
+    ]
+)
 
 @repeat_every(seconds=10)
 async def event_startup_find_user_exp_password():

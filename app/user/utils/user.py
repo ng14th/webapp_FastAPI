@@ -7,7 +7,9 @@ from app.core.verify.token import validator_token, check_password, hass_password
 from datetime import datetime, timedelta
 from app.core.database.rabbitmq_kombu import RabbitMQ
 from app.core import constants
+import logging
 
+logger = logging.getLogger('User Utils')
 connection = RabbitMQ()
 
 
@@ -37,6 +39,7 @@ async def change_password(data : ChangePassword):
     return user.email
         
 async def find_user_exp_password():
+    logger.info('Find users have password expired')
     list_user = []
     time_now = datetime.timestamp(datetime.utcnow()+timedelta(days=15))
     users = User.find({'password_expr':{'$lte':str(time_now)}})

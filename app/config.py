@@ -34,7 +34,7 @@ class AppEnvConfig(BaseSettings):
     RMQ_CHANNEL : int = 9
     
     EMAIL_SENDER : str = 'nguyennt63@fpt.com.vn'
-    EMAIL_PASSWORD : str = '@Dj5ngontay1411'
+    EMAIL_PASSWORD : str = '@Phuonglinh14'
     EMAIL_HOST : str = 'mail.fpt.com.vn'
     EMAIL_PORT : int = 587
 

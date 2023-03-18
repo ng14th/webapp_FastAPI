@@ -25,3 +25,5 @@ ROUTING_KEY_CHANGE_PASSWORD = 'trigger_change_password'
 CONSUMER_HANDLER_USER_TASK = 'consumer_handler_user_task' 
 CONSUMER_HANDLER_API_TASK = 'consumer_handler_api_task'
 CONSUMER_HANDLER_CELERY_TASK = 'consumer_handler_celery_task'
+# Htype Mapping Class
+HTYPE_MAPPING_CLASS_SEND_EMAIL = 'htype_mapping_send_email'

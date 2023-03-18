@@ -1,7 +1,6 @@
 from app_celery.celery_re import celery as celery2
 import asyncio
 from app.core import constants
-from app_celery.processor_handler_send_email import password_notification
 import kombu
 from app_celery.worker.base_consumer import BaseWorker
 
@@ -9,14 +8,12 @@ loop = asyncio.get_event_loop()
 class PasswordNotificationWorker(BaseWorker):
 
     def get_consumers(self, channel):
-        call_back = password_notification
         exchange_name = constants.EXCHANGE_TASK_CELERY
         type_exchange = constants.TYPE_DIRECT
         queue_name = constants.BIND_QUEUE_NOTI_USER
         routing_key = constants.ROUTING_KEY_NOTI_USER
 
         return super().get_consumers(channel,
-                                     call_back = call_back,
                                      exchange_name=exchange_name, 
                                      type_exchange=type_exchange, 
                                      queue_name=queue_name, 

@@ -12,7 +12,9 @@ async def main():
     # queue = Queue('myqueue', durable=True)
 
     # publish a message to the queue
-    message1 = 'nguyennt63@fpt.com.vn'
+    message1 = {"htype":constants.HTYPE_MAPPING_CLASS_SEND_EMAIL,
+                "data" : [{'email':'nguyennt63@fpt.com.vn',
+                            "time_exp" : 123}]}
     # message1 = [{'email':'nguyennt63@fpt.com.vn',
     #              "time_exp" : 123}]
     # b = event_startup_queue()
