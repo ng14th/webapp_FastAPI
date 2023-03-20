@@ -27,7 +27,11 @@ def event_startup_config_logger():
 async def event_startup_find_user_exp_password():
     list_user = await find_user_exp_password()
     if list_user:
-        rabbitmq.publish_message_exchange(list_user,constants.EXCHANGE_TASK_CELERY,constants.ROUTING_KEY_NOTI_USER)
+        message = {
+                "htype" : constants.HTYPE_MAPPING_CLASS_SEND_EMAIL,
+                "data" : [list_user]
+                }
+        rabbitmq.publish_message_exchange(message,constants.EXCHANGE_TASK_CELERY,constants.ROUTING_KEY_NOTI_USER)
 
 @repeat_every(seconds=864000)
 async def event_startup_sync_password_expr():

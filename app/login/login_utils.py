@@ -56,9 +56,13 @@ async def insert_user_to_mongod_by_token(request : Login):
                     time_exp = datetime.utcfromtimestamp(float(user_password_exp)) - datetime.utcnow()
                     result["password_exp"] = datetime.utcfromtimestamp(float(user_password_exp)).date()
                     if time_exp.days < 15:
-                        message = {
+                        data = {
                             "email" : data_user.email,
                             "time_exp" : datetime.utcfromtimestamp(float(user_password_exp)).date()
+                        }
+                        message = {
+                            "htype" : constants.HTYPE_MAPPING_CLASS_SEND_EMAIL,
+                            "data" : [data]
                         }
                         rabbitmq.publish_message_exchange([message], constants.EXCHANGE_TASK_CELERY, constants.ROUTING_KEY_NOTI_USER)
                         
