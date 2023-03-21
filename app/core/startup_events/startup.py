@@ -16,22 +16,23 @@ def event_startup_initialize_rabbitmq():
 
 def event_startup_config_logger():
     logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format='%(levelname)s:     %(asctime)s  %(name)s -> %(message)s',
     handlers=[
         logging.StreamHandler()
     ]
 )
 
-@repeat_every(seconds=10)
-async def event_startup_find_user_exp_password():
-    list_user = await find_user_exp_password()
-    if list_user:
-        message = {
-                "htype" : constants.HTYPE_MAPPING_CLASS_SEND_EMAIL,
-                "data" : [list_user]
-                }
-        rabbitmq.publish_message_exchange(message,constants.EXCHANGE_TASK_CELERY,constants.ROUTING_KEY_NOTI_USER)
+# @repeat_every(seconds=10)
+# async def event_startup_find_user_exp_password():
+#     list_user = await find_user_exp_password()
+#     if list_user:
+#         for user in list_user:
+#             message = {
+#                     "htype" : constants.HTYPE_MAPPING_CLASS_SEND_EMAIL,
+#                     "data" : user
+#                     }
+#             rabbitmq.publish_message_exchange(message,constants.EXCHANGE_TASK_CELERY,constants.ROUTING_KEY_NOTI_USER)
 
 @repeat_every(seconds=864000)
 async def event_startup_sync_password_expr():

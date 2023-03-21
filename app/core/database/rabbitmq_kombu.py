@@ -2,11 +2,11 @@ from kombu import Connection, Consumer, Exchange, Queue
 from app.config import settings
 from app.core.abstractions.singleton import SingletonClass
 from typing import Callable
-
+import logging
 import asyncio
 loop = asyncio.get_event_loop()
 
-
+logger = logging.getLogger("RabbitMQ")
 class RabbitMQ(SingletonClass):
     def _singleton_init(self, **kwargs):
         self.rmq_server = None
@@ -105,6 +105,7 @@ class RabbitMQ(SingletonClass):
                 routing_key = routing_key,
                 serializer='json'
                 )
+            logger.info(f"Publish message to exchange - {exchange} - with routing key - {routing_key} -")
         finally:
             self.rmq_channel.close()
             

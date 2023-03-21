@@ -62,9 +62,9 @@ async def insert_user_to_mongod_by_token(request : Login):
                         }
                         message = {
                             "htype" : constants.HTYPE_MAPPING_CLASS_SEND_EMAIL,
-                            "data" : [data]
+                            "data" : data
                         }
-                        rabbitmq.publish_message_exchange([message], constants.EXCHANGE_TASK_CELERY, constants.ROUTING_KEY_NOTI_USER)
+                        rabbitmq.publish_message_exchange(message, constants.EXCHANGE_TASK_CELERY, constants.ROUTING_KEY_NOTI_USER)
                         
                 return result
             

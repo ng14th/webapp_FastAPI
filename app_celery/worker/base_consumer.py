@@ -28,17 +28,22 @@ class BaseWorker(bootsteps.ConsumerStep):
     
     
     def handler_message(self, body, message, **kwargs):
-        htype = body.get('htype')
-        data = body.get('data')
-        matching_classes = self.search_classes_by_htype(handler_packet, htype)
-        if matching_classes:
-            for class_obj in matching_classes:
-                handler_instance = class_obj()
-                handler_instance.handler(data, message)
-        else:
-            logger.error(f"No classes found in the modules with htype attribute {body.get('htype')}")
+        try:
+            htype = body.get('htype')
+            data = body.get('data')
+            matching_classes = self.search_classes_by_htype(handler_packet, htype)
+            if matching_classes:
+                for class_obj in matching_classes:
+                    handler_instance = class_obj()
+                    handler_instance.handler(data, message)
+            else:
+                logger.error(f"No classes found in the modules with htype attribute {body.get('htype')}")
+                message.ack()
+        except Exception as e:
             message.ack()
-
+            logger.error(f'handler message {message} got error {e}')
+            
+            
     def get_consumers(self, channel, **kwargs):
         exchange_name = kwargs.get('exchange_name')
         type_exchange = kwargs.get('type_exchange')
