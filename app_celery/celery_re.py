@@ -16,6 +16,10 @@ celery.conf.task_ignore_result = True
 celery.conf.task_store_errors_even_if_ignored = True
 celery.conf.timezone = 'UTC'
 
+celery.conf.task_always_eager = False
+celery.conf.task_eager_propagates = False
+celery.conf.worker_loop = 'asyncio'
+
 #Conf BEAT SCHEDULE FOR CELERY
 celery.conf.beat_schedule = {
     'Sync Information Employeer BEAT' : {

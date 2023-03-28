@@ -27,3 +27,4 @@ CONSUMER_HANDLER_API_TASK = 'consumer_handler_api_task'
 CONSUMER_HANDLER_CELERY_TASK = 'consumer_handler_celery_task'
 # Htype Mapping Class
 HTYPE_MAPPING_CLASS_SEND_EMAIL = 'htype_mapping_send_email'
+HTYPE_MAPPING_CLASS_SEND_EMAIL1 = 'htype_mapping_send_email1'

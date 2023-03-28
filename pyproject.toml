@@ -13,7 +13,6 @@ uvicorn = {extras = ["standard"], version = "^0.20.0"}
 umongo = "^3.1.0"
 aioredis = "^2.0.1"
 ujson = "^5.6.0"
-celery = "^5.2.7"
 redis = "^4.4.0"
 fastapi-utils = "^0.2.1"
 flower = "^1.2.0"
@@ -25,6 +24,7 @@ aiormq = "^6.6.4"
 kombu = "^5.2.4"
 colorlog = "^6.7.0"
 pyshorteners = "^1.0.1"
+pydantic = {extras = ["email"], version = "^1.10.6"}
 
 
 [build-system]
