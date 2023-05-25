@@ -16,16 +16,14 @@ async def main():
                 "data" : {'email':'nguyennt63@fpt.com.vn',
                             "time_exp" : 123}}
     
-    message2 = {"htype":constants.HTYPE_MAPPING_CLASS_SEND_EMAIL1,
-                "data" : {'email':'nguyennt63@fpt.com.vn',
-                            "time_exp" : 123}}
+    message2 = "message33"
     # message1 = [{'email':'nguyennt63@fpt.com.vn',
     #              "time_exp" : 123}]
     # b = event_startup_queue()
     # connection.publish_message_queue(message1,b)
     server, channel = connection.initialize_rmq()
     # connection.publish_message_exchange(message1,constants.EXCHANGE_TASK_CELERY,constants.ROUTING_KEY_NOTI_USER)
-    connection.publish_message_exchange(message2,constants.EXCHANGE_TASK_CELERY,"key.user.123")
+    connection.publish_message_exchange(message2,"nguyentest","123")
     server.close()
                     
 if __name__ == "__main__":
